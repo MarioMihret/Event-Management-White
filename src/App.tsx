@@ -1,7 +1,7 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { Toaster } from 'react-hot-toast';
 import AuthLayout from './components/auth/AuthLayout';
-// import ProtectedRoute from './components/auth/ProtectedRoute';
+import ProtectedRoute from './components/auth/ProtectedRoute';
 import Login from './pages/auth/Login';
 import SignUp from './pages/auth/SignUp';
 import ForgotPassword from './pages/auth/ForgotPassword';
@@ -42,33 +42,33 @@ export default function App() {
             <Route
               path="/admin-dashboard"
               element={
-                // <ProtectedRoute allowedRoles={['admin']}>
+                <ProtectedRoute allowedRoles={['admin']}>
                   <AdminDashboard />
-                // </ProtectedRoute>
+                </ProtectedRoute>
               }
             />
             <Route
               path="/organizer-dashboard"
               element={
-                // <ProtectedRoute allowedRoles={['organizer']}>
+                <ProtectedRoute allowedRoles={['organizer']}>
                   <OrganizerDashboard />
-                // </ProtectedRoute>
+                </ProtectedRoute>
               }
             />
             <Route
               path="/attendee-dashboard"
               element={
-                // <ProtectedRoute allowedRoles={['attendee']}>
+                <ProtectedRoute allowedRoles={['attendee']}>
                   <AttendeeDashboard />
-                // </ProtectedRoute>
+                </ProtectedRoute>
               }
             />
             <Route
               path="/create-event"
               element={
-                // <ProtectedRoute allowedRoles={['admin', 'organizer']}>
+                <ProtectedRoute allowedRoles={['admin', 'organizer']}>
                   <CreateEvent />
-                // </ProtectedRoute>
+                </ProtectedRoute>
               }
             />
 

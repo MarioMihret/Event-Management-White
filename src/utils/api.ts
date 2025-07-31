@@ -11,7 +11,7 @@ class Api {
 
   private constructor() {
     this.axiosInstance = axios.create({
-      baseURL: import.meta.env.VITE_API_URL || 'http://localhost:5000/api',
+      baseURL: import.meta.env.VITE_API_URL || 'http://localhost:5000/',
       timeout: 10000,
       headers: {
         'Content-Type': 'application/json',
@@ -89,7 +89,7 @@ class Api {
 
   async get<T>(url: string, config?: AxiosRequestConfig): Promise<T> {
     try {
-      return await this.axiosInstance.get<T>(url, config);
+      return (await this.axiosInstance.get<T>(url, config)) as T;
     } catch (error) {
       throw handleApiError(error);
     }
@@ -97,7 +97,7 @@ class Api {
 
   async post<T>(url: string, data?: any, config?: AxiosRequestConfig): Promise<T> {
     try {
-      return await this.axiosInstance.post<T>(url, data, config);
+      return (await this.axiosInstance.post<T>(url, data, config)) as T;
     } catch (error) {
       throw handleApiError(error);
     }
@@ -105,7 +105,7 @@ class Api {
 
   async put<T>(url: string, data?: any, config?: AxiosRequestConfig): Promise<T> {
     try {
-      return await this.axiosInstance.put<T>(url, data, config);
+      return (await this.axiosInstance.put<T>(url, data, config)) as T;
     } catch (error) {
       throw handleApiError(error);
     }
@@ -113,7 +113,7 @@ class Api {
 
   async delete<T>(url: string, config?: AxiosRequestConfig): Promise<T> {
     try {
-      return await this.axiosInstance.delete<T>(url, config);
+      return (await this.axiosInstance.delete<T>(url, config)) as T;
     } catch (error) {
       throw handleApiError(error);
     }

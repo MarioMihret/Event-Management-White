@@ -20,4 +20,27 @@ export interface ValidationResult {
   errors: string[];
 }
 
+export interface Event {
+  id: string;
+  _id?: string; // Mongoose uses _id
+  title: string;
+  description: string;
+  date: string;
+  location: string;
+  price: number;
+  image: string;
+  organizer: string;
+  category: string;
+  tickets: {
+    available: number;
+    total: number;
+  };
+}
+
+export interface User {
+  id: string;
+  name: string;
+  email: string;
+  role: 'user' | 'admin';
+}
 // ... rest of the existing types

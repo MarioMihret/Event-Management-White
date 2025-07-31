@@ -1,13 +1,12 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Mail, Lock, Loader, LogIn, Smile } from "lucide-react";
-// import { useAuth } from "../../hooks/useAuth";
-// import toast from "react-hot-toast";
-import axios from "axios";
+import { useAuth } from "../../context/AuthContext";
+import toast from "react-hot-toast";
 
 export default function Login() {
   const navigate = useNavigate();
-  // const { login } = useAuth();
+  const { login } = useAuth();
 
   const [formData, setFormData] = useState({
     email: "",
@@ -16,33 +15,19 @@ export default function Login() {
   });
 
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(false);
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
 
     try {
-      const response = await axios
-        .post("http://localhost:5000/api/auth/v1/login", {
-          email: formData.email,
-          password: formData.password,
-          // rememberMe: true,
-        })
-        .then((response) => {
-          setLoading(false);
-          navigate("/admin-dashboard");
-          console.log(response);
-        })
-        .catch((err) => {
-          setError(true);
-          setLoading(false);
-          console.log(err);
-        });
+      await login(formData.email, formData.password, formData.rememberMe);
+      toast.success("Login successful!");
+      navigate("/admin-dashboard"); // or wherever you want to redirect after login
     } catch (error: any) {
-      setError(true);
+      toast.error(error.message || "Login failed. Please try again.");
+    } finally {
       setLoading(false);
-      throw new Error(error.response?.data?.message || "Login failed");
     }
   };
 
@@ -64,13 +49,6 @@ export default function Login() {
         <div className="px-8 py-10 bg-white shadow-lg rounded-2xl sm:px-10">
           <form className="space-y-6" onSubmit={handleSubmit}>
             <div>
-              {error && (
-                <div className="flex items-center justify-center p-2 my-10 bg-red-200 border-red-200 rounded-md border-1">
-                  <p className="text-sm font-bold text-gray-400">
-                    Something went wrong, please try again
-                  </p>
-                </div>
-              )}
               <label
                 htmlFor="email"
                 className="block text-sm font-medium text-gray-700">
