@@ -22,3 +22,8 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+<<<<<<< HEAD
+=======
+
+.codegpt
+>>>>>>> 34a2d352adaefa9df4bc1ecb6a50c8f0fdd37605
