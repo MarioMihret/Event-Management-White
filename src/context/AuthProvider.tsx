@@ -1,8 +1,7 @@
 import React, { useState, useEffect, ReactNode } from 'react';
 import { AuthContext, AuthContextType, SignupData } from './AuthContext';
-import { authService } from '../utils/auth';
+import authService from '../services/authService';
 import { User } from '../types';
-import { logger } from '../utils/logger';
 
 interface AuthProviderProps {
   children: ReactNode;
@@ -13,27 +12,19 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const checkUser = async () => {
-      try {
-        const currentUser = await authService.getCurrentUser();
-        setUser(currentUser);
-      } catch (error) {
-        logger.warn('No authenticated user found.');
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    checkUser();
+    const currentUser = authService.getCurrentUser();
+    setUser(currentUser);
+    setLoading(false);
   }, []);
 
-  const login = async (email: string, password: string, rememberMe: boolean = false) => {
-    const loggedInUser = await authService.login(email, password, rememberMe);
+  const login = async (email: string, password: string) => {
+    const loggedInUser = await authService.login(email, password);
     setUser(loggedInUser);
   };
 
   const signup = async (data: SignupData) => {
-    await authService.signup(data);
+    const newUser = await authService.signup(data);
+    setUser(newUser);
   };
 
   const logout = () => {
@@ -42,11 +33,11 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   };
 
   const requestPasswordReset = async (email: string) => {
-    await authService.requestPasswordReset(email);
+    console.log('Password reset is not implemented in mock mode.', email);
   };
 
   const resetPassword = async (token: string, newPassword: string) => {
-    await authService.resetPassword(token, newPassword);
+    console.log('Password reset is not implemented in mock mode.', { token, newPassword });
   };
 
   const isAdmin = () => {

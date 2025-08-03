@@ -65,7 +65,7 @@ export default function App() {
             <Route
               path="/create-event"
               element={
-                <ProtectedRoute allowedRoles={['admin', 'organizer']}>
+                <ProtectedRoute allowedRoles={['admin', 'organizer', 'attendee']}>
                   <CreateEvent />
                 </ProtectedRoute>
               }

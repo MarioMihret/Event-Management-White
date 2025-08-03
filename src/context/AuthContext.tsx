@@ -1,4 +1,4 @@
-import { createContext, useContext, ReactNode } from 'react';
+import { createContext, useContext } from 'react';
 import { User } from '../types';
 
 export interface AuthContextType {
@@ -16,7 +16,7 @@ export interface SignupData {
   name: string;
   email: string;
   password: string;
-  role: string;
+  role: 'user' | 'admin' | 'organizer';
 }
 
 const defaultAuthContext: AuthContextType = {

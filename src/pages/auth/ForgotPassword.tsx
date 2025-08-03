@@ -1,11 +1,11 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Mail, Loader, ArrowLeft } from 'lucide-react';
-// import { useAuth } from '../../hooks/useAuth';
+import { Mail, Loader, ArrowLeft, Building, Shield } from 'lucide-react';
+import { useAuth } from '../../context/AuthContext';
 import toast from 'react-hot-toast';
 
 export default function ForgotPassword() {
-  // const { requestPasswordReset } = useAuth();
+  const { requestPasswordReset } = useAuth();
   const [email, setEmail] = useState('');
   const [loading, setLoading] = useState(false);
   const [submitted, setSubmitted] = useState(false);
@@ -27,26 +27,28 @@ export default function ForgotPassword() {
 
   if (submitted) {
     return (
-      <div className="flex flex-col justify-center min-h-screen py-12 bg-gray-50 sm:px-6 lg:px-8">
-        <div className="sm:mx-auto sm:w-full sm:max-w-md">
-          <div className="px-4 py-8 bg-white shadow sm:rounded-lg sm:px-10">
-            <div className="text-center">
-              <Mail className="w-12 h-12 mx-auto text-indigo-600" />
-              <h2 className="mt-6 text-3xl font-extrabold text-center text-gray-900">
-                Check your email
-              </h2>
-              <p className="mt-2 text-sm text-center text-gray-600">
-                We've sent password reset instructions to {email}
-              </p>
-              <div className="mt-6">
-                <Link
-                  to="/login"
-                  className="text-sm font-medium text-indigo-600 hover:text-indigo-500"
-                >
-                  Return to sign in
-                </Link>
-              </div>
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+        <div className="max-w-md w-full mx-auto bg-white rounded-2xl shadow-xl p-8">
+          <div className="text-center">
+            <div className="mx-auto flex items-center justify-center h-16 w-16 rounded-full bg-green-100 mb-6">
+              <Mail className="h-8 w-8 text-green-600" />
             </div>
+            <h2 className="text-2xl font-bold text-gray-900 mb-2">
+              Check your email
+            </h2>
+            <p className="text-gray-600 mb-6">
+              We've sent password reset instructions to <span className="font-medium">{email}</span>
+            </p>
+            <p className="text-sm text-gray-500 mb-8">
+              Didn't receive the email? Check your spam folder or try again.
+            </p>
+            <Link
+              to="/login"
+              className="inline-flex items-center justify-center w-full py-3 px-4 border border-transparent rounded-lg shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition"
+            >
+              <ArrowLeft className="w-4 h-4 mr-2" />
+              Return to sign in
+            </Link>
           </div>
         </div>
       </div>
@@ -54,27 +56,30 @@ export default function ForgotPassword() {
   }
 
   return (
-    <div className="flex flex-col justify-center min-h-screen py-12 bg-gray-50 sm:px-6 lg:px-8">
-      <div className="sm:mx-auto sm:w-full sm:max-w-md">
-        <h2 className="mt-6 text-3xl font-extrabold text-center text-gray-900">
-          Reset your password
-        </h2>
-        <p className="mt-2 text-sm text-center text-gray-600">
-          Enter your email address and we'll send you instructions to reset your password.
-        </p>
-      </div>
+    <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+      <div className="max-w-4xl w-full mx-auto rounded-2xl shadow-xl overflow-hidden bg-white md:flex">
+        {/* Left side - Form */}
+        <div className="w-full md:w-1/2 p-8 md:p-12">
+          <div className="text-center md:text-left mb-8">
+            <Link to="/" className="inline-flex items-center text-indigo-600 font-bold text-2xl">
+              <Building className="w-8 h-8 mr-2" />
+              <span>EventFlow</span>
+            </Link>
+            <h2 className="mt-6 text-3xl font-bold text-gray-900">
+              Reset Password
+            </h2>
+            <p className="mt-2 text-gray-600">
+              Enter your email address and we'll send you instructions to reset your password.
+            </p>
+          </div>
 
-      <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
-        <div className="px-4 py-8 bg-white shadow sm:rounded-lg sm:px-10">
           <form className="space-y-6" onSubmit={handleSubmit}>
             <div>
               <label htmlFor="email" className="block text-sm font-medium text-gray-700">
-                Email address
+                Email Address
               </label>
-              <div className="relative mt-1 rounded-md shadow-sm">
-                <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-                  <Mail className="w-5 h-5 text-gray-400" />
-                </div>
+              <div className="mt-1 relative">
+                <Mail className="w-5 h-5 text-gray-400 absolute left-3 top-1/2 -translate-y-1/2" />
                 <input
                   id="email"
                   name="email"
@@ -83,7 +88,7 @@ export default function ForgotPassword() {
                   required
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="block w-full pl-10 border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                  className="w-full pl-10 pr-3 py-2 border border-gray-300 rounded-lg focus:ring-indigo-500 focus:border-indigo-500 transition"
                   placeholder="you@example.com"
                 />
               </div>
@@ -93,28 +98,58 @@ export default function ForgotPassword() {
               <button
                 type="submit"
                 disabled={loading}
-                className="flex justify-center w-full px-4 py-2 text-sm font-medium text-white bg-indigo-600 border border-transparent rounded-md shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:opacity-50 disabled:cursor-not-allowed"
+                className="w-full flex justify-center py-3 px-4 border border-transparent rounded-lg shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:opacity-50 transition"
               >
                 {loading ? (
                   <>
-                    <Loader className="w-5 h-5 mr-2 -ml-1 animate-spin" />
-                    Sending instructions...
+                    <Loader className="w-5 h-5 mr-3 animate-spin" />
+                    Sending Instructions...
                   </>
                 ) : (
-                  'Send reset instructions'
+                  <>
+                    <Mail className="w-5 h-5 mr-2" />
+                    Send Reset Instructions
+                  </>
                 )}
               </button>
             </div>
           </form>
 
-          <div className="mt-6">
+          <div className="mt-8 text-center">
             <Link
               to="/login"
-              className="flex items-center justify-center text-sm font-medium text-indigo-600 hover:text-indigo-500"
+              className="inline-flex items-center text-sm font-medium text-indigo-600 hover:text-indigo-500"
             >
               <ArrowLeft className="w-4 h-4 mr-2" />
               Back to sign in
             </Link>
+          </div>
+        </div>
+
+        {/* Right side - Visual */}
+        <div className="hidden md:block md:w-1/2 bg-gradient-to-br from-indigo-600 to-purple-700 p-12">
+          <div className="h-full flex flex-col justify-center items-center text-white">
+            <div className="text-center">
+              <Shield className="w-20 h-20 mx-auto mb-8 opacity-80" />
+              <h3 className="text-3xl font-bold mb-4">Secure Password Reset</h3>
+              <p className="text-lg opacity-90 mb-8">
+                We'll help you get back into your account safely and securely.
+              </p>
+              <div className="space-y-4">
+                <div className="flex items-center justify-center space-x-3">
+                  <div className="w-2 h-2 bg-white rounded-full"></div>
+                  <span>Secure email verification</span>
+                </div>
+                <div className="flex items-center justify-center space-x-3">
+                  <div className="w-2 h-2 bg-white rounded-full"></div>
+                  <span>Quick and easy process</span>
+                </div>
+                <div className="flex items-center justify-center space-x-3">
+                  <div className="w-2 h-2 bg-white rounded-full"></div>
+                  <span>Account protection guaranteed</span>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
