@@ -21,7 +21,7 @@ export interface ValidationResult {
 }
 
 export interface Event {
-  id: string;
+  id?: string;
   _id?: string; // Mongoose uses _id
   title: string;
   description: string;
@@ -41,6 +41,67 @@ export interface User {
   id: string;
   name: string;
   email: string;
-  role: 'user' | 'admin';
+  role: 'user' | 'admin' | 'organizer';
+  events: Event[];
+  status: 'active' | 'suspended';
+  createdAt: string;
+  updatedAt: string;
 }
+
+export interface PaginationParams {
+  page: number;
+  limit: number;
+  sortBy: string;
+  sortDirection: 'asc' | 'desc';
+}
+export interface TicketType {
+  name: string;
+  price: number;
+  quantity: number;
+  description: string;
+}
+
+export interface EventFormData {
+  basicInfo: {
+    title: string;
+    description: string;
+    category: string;
+    type: string;
+    tags: string[];
+  };
+  dateTime: {
+    startDate: string;
+    endDate: string;
+    startTime: string;
+    endTime: string;
+    timezone: string;
+  };
+  location: {
+    type: 'physical' | 'virtual';
+    venue: string;
+    address: string;
+    city: string;
+    virtualLink: string;
+  };
+  ticketing: {
+    type: 'free' | 'paid';
+    price: number;
+    availableTickets: number;
+    ticketTypes: TicketType[];
+  };
+  media: {
+    bannerImage: string;
+    logo: string;
+  };
+  additionalInfo: {
+    agenda: { time: string; title: string; description: string }[];
+    speakers: { name: string; bio: string; topic: string }[];
+    sponsors: { name: string; level: string; logo?: string }[];
+  };
+  videoMeeting: {
+    enableVideoMeeting: boolean;
+    meetingId: string;
+  };
+}
+
 // ... rest of the existing types

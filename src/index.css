@@ -1,8 +1,6 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-<<<<<<< HEAD
-=======
 
 @layer base {
   body {
@@ -75,4 +73,3 @@
     animation: blink 1s step-end infinite;
   }
 }
->>>>>>> 34a2d352adaefa9df4bc1ecb6a50c8f0fdd37605

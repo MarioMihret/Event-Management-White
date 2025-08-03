@@ -28,12 +28,10 @@ router.post('/events', async (req, res) => {
   }
 });
 
-// Get visible events
+// Get all events
 router.get('/events', async (req, res) => {
   try {
-    const events = await Event.find({
-      'visibility.isVisible': true
-    }).sort({ date: 1 });
+    const events = await Event.find({}).sort({ date: -1 });
     res.json(events);
   } catch (error) {
     res.status(500).json({ error: error.message });

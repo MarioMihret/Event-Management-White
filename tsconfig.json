@@ -1,11 +1,8 @@
 {
-<<<<<<< HEAD
   "compilerOptions": {
     "strict": true,  // Enforcing strict type checking globally
     "forceConsistentCasingInFileNames": true  // Enforcing consistent casing in file names
   },
-=======
->>>>>>> 34a2d352adaefa9df4bc1ecb6a50c8f0fdd37605
   "files": [],
   "references": [
     { "path": "./tsconfig.app.json" },

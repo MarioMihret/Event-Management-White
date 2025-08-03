@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Users, Calendar, DollarSign, Settings, BarChart } from 'lucide-react';
+import { Users, Calendar, Settings, BarChart } from 'lucide-react';
 import { AdminStats as AdminStatsType } from '../../types/admin';
 import AdminUserList from './AdminUserList';
 import AdminEventList from './AdminEventList';

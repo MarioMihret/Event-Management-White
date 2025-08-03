@@ -9,12 +9,13 @@ import EventMedia from '../components/create-event/EventMedia';
 import EventAdditionalInfo from '../components/create-event/EventAdditionalInfo';
 import EventVideoMeeting from '../components/create-event/EventVideoMeeting';
 import { useEvents } from '../context/EventContext';
+import { EventFormData } from '../types';
 
 export default function CreateEvent() {
   const navigate = useNavigate();
   const { addEvent } = useEvents();
   const [currentStep, setCurrentStep] = useState(1);
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<EventFormData>({
     basicInfo: {
       title: '',
       description: '',
@@ -57,7 +58,7 @@ export default function CreateEvent() {
     },
   });
 
-  const handleUpdateForm = (section: string, data: any) => {
+  const handleUpdateForm = (section: keyof typeof formData, data: any) => {
     setFormData((prev) => ({
       ...prev,
       [section]: { ...prev[section], ...data },

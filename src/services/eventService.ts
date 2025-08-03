@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { Event } from '../types';
 
-const API_URL = 'http://localhost:5000/api/auth/v1';
+const API_URL = 'http://localhost:5000/api';
 
 const eventService = {
   getEvents: async (): Promise<Event[]> => {

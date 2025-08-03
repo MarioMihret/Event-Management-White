@@ -6,11 +6,10 @@ import {
   Users,
   Share2,
   Clock,
-  Globe,
   Mail,
   Phone,
   CreditCard,
-  CheckCircle,
+  
   AlertCircle,
 } from 'lucide-react';
 import { useEvents } from '../context/EventContext';
@@ -209,12 +208,10 @@ export default function EventDetails() {
       </div>
 
       {/* Payment Modal */}
-      {showPaymentModal && (
+      {showPaymentModal && event && (
         <PaymentModal
-          event={{
-            ...event,
-            price: event.price * selectedTickets
-          }}
+          event={event}
+          selectedTickets={selectedTickets}
           onClose={() => setShowPaymentModal(false)}
           onSuccess={handlePaymentSuccess}
         />
